@@ -24,8 +24,63 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Rails Best Practices</h1>										
+				</section>
+				<section>
+					<h3>Thin Controllers and Fat Models</h3>
+					<p> Alway write <strong>business logic</strong> in the models. Keep the number of lines in controller to a minimum.</p>
+				</section>
+				<section>
+					<h5>Use permitted params when updating or creating a record</h3>
+					<p>
+						<strong>Use Patient.update_attributes(patient_params)</strong> 
+					</p>
+					instead of 
+					<p>
+					<strong>Patient.update_attributes(first_name: 'Arun',...)</strong>
+					</p>
+					<p>Always use <strong>update_attributes</strong> to update a record.</p>
+				</section>
+				<section>
+					<h5>Do not modify params.</h3>
+					<p>If required make a copy or clone of the params and use as per requirement.</p>
+				</section>				
+				<section>
+					<h5>Never use default scopes.</h5>
+				</section>
+				<section>
+					<h5>Use macro style grouping</h5>
+					<a href="https://github.com/bbatsov/rails-style-guide#macro-style-methods">Format Example</a>
+				</section>
+				<section>
+					<h5>Many to Many Association</h5>
+					<p>Prefer <strong>has_many: , through</strong></p>
+					instead of 
+					<p><strong>has_and belongs_to_many</strong></p>
+					<p>Allows us to have a model and more control over the data in intermediate table.</p>					
+				</section>
+				<section>
+					<h5>find_each over each</h5>
+					<p>While looping through a large number of records and doing a process over each record, always use find_each insead of each.</p>
+					<a href="https://github.com/bbatsov/rails-style-guide#find-each">Example</a>
+				</section>
+				<section>
+					<h5>Use named placeholders</h5>
+					<p>
+						<strong>
+							Client.where('created_at >= ? AND created_at <= ?',params[:start_date], params[:end_date])
+						</strong>
+					</p>
+					better use
+					<p>
+						<strong>
+							Client.where('created_at >= :start_date AND created_at <= :end_date',start_date: params[:start_date], end_date: params[:end_date])
+						</strong>
+					</p>
+					<a href="https://github.com/bbatsov/rails-style-guide#named-placeholder">Example</a>
+				</section>
+
 			</div>
 		</div>
 
@@ -46,5 +101,10 @@
 				]
 			});
 		</script>
+		<style type="text/css">
+			strong{
+				color: green;
+			}
+		</style>
 	</body>
 </html>
